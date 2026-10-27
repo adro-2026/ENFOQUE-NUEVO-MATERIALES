@@ -1,0 +1,33 @@
+{
+  "corpus": "C",
+  "raiz_corpus_sha256": "842de84a6433f9904969ffc7a49e83d65af74cc0fe67df0e6530e9258b2a1e04",
+  "conversaciones": 457,
+  "nodos": 27057,
+  "hojas_totales": 27514,
+  "conversaciones_sin_mensajes": 3,
+  "nodos_por_rol": {
+    "human": 13684,
+    "assistant": 13373
+  },
+  "rango_fechas_utc": [
+    "2026-01-03",
+    "2026-10-20"
+  ],
+  "archivos_json": [
+    {
+      "nombre": "conversations.json",
+      "bytes": 213229286,
+      "sha256": "71dc01708174840e0c1d83a85ce0b4bb447b847b0b2789655891a91bc50605ea"
+    }
+  ],
+  "manifiesto": {
+    "nombre": "MANIFIESTO_C.csv.gz",
+    "sha256": "b3254c0c38fbc3211a30e6c87647f3a82fab8e37c64326f1a9825d14f6e57a28"
+  },
+  "esquema": "hoja=SHA256(0x00||sal||JSON_canonico); sal=HMAC-SHA256(clave_privada, conv_id|nodo_id); interno=SHA256(0x01||izq||der), nodo sin pareja sube; conversaciones ordenadas por create_time e id; nodos por id (ChatGPT) o en el orden del export (Claude), hoja 0 = metadatos de la conversación sin mensajes",
+  "archivo_zip": {
+    "nombre": "conversations-000__4_.zip",
+    "bytes": 42444189,
+    "sha256": "95633c890f2e75157731e79673bbd41446db0746f1ad3db78eb60783ff9794df"
+  }
+}

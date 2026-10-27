@@ -1,0 +1,9 @@
+{
+  "raiz_global_sha256": "c4ea8d6b7668e30954d3fe7cc2e2dc4afe9940c9e2dec07aa0f7e0b62733acca",
+  "construccion": "SHA256(0x01 || SHA256(0x01 || raiz_A || raiz_B) || raiz_C)",
+  "raices": {
+    "A": "4ae80e746641e480323499266731cf6822bc75394436ee2a3928c9a78fa58582",
+    "B": "30ffeb121c13dd72d3d25b5a5337e9f41b9da24bbf581a5555cbb950fb62cb39",
+    "C": "842de84a6433f9904969ffc7a49e83d65af74cc0fe67df0e6530e9258b2a1e04"
+  }
+}
