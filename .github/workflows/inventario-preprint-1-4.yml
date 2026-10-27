@@ -1,0 +1,36 @@
+name: Inventario SHA-256 preprint 1.4
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'README.md'
+      - 'INVENTARIO.md'
+      - '00_informe/INFORME.*'
+      - '05_analisis_transversal/**'
+permissions:
+  contents: write
+jobs:
+  inventario:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generar manifiesto verificable y retirar flujo temporal
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm ".github/workflows/inventario-preprint-1-4.yml"
+          python3 scripts/generar_inventario_sha256.py
+          python3 - <<'PY'
+          from pathlib import Path
+          lines=Path("INVENTARIO_ACTUAL_SHA256.tsv").read_text().splitlines()
+          assert lines[0]=="ruta\tbytes\tsha256"
+          assert len(lines)==99, f"Se esperaban 98 registros, hay {len(lines)-1}"
+          for expected in ("00_informe/INFORME.pdf\t", "00_informe/INFORME.md\t", "00_informe/ENFOQUE_NUEVO_PREPRINT_1_4_FUENTES.zip\t"):
+              assert any(line.startswith(expected) for line in lines)
+          assert sum(line.startswith("05_analisis_transversal/") for line in lines)==14
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Cerrar inventario SHA-256 de los 100 archivos de la edición 1.4"
+          git push origin HEAD:main
