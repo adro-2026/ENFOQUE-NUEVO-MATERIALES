@@ -1,0 +1,28 @@
+name: Completar paquete de fuentes 1.4
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '00_informe/ENFOQUE_NUEVO_PREPRINT_1_4_FUENTES.zip.part01'
+      - '00_informe/ENFOQUE_NUEVO_PREPRINT_1_4_FUENTES.zip.part02'
+permissions:
+  contents: write
+jobs:
+  unir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reconstruir archivo y verificar SHA-256
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat "00_informe/ENFOQUE_NUEVO_PREPRINT_1_4_FUENTES.zip.part01" "00_informe/ENFOQUE_NUEVO_PREPRINT_1_4_FUENTES.zip.part02" > "00_informe/ENFOQUE_NUEVO_PREPRINT_1_4_FUENTES.zip"
+          printf '%s  %s\n' '15d85713a1c0830e37e3dedccacfde4767ce9ba9b917371640e1bcafd63b25f9' '00_informe/ENFOQUE_NUEVO_PREPRINT_1_4_FUENTES.zip' | sha256sum --check
+          rm "00_informe/ENFOQUE_NUEVO_PREPRINT_1_4_FUENTES.zip.part01" "00_informe/ENFOQUE_NUEVO_PREPRINT_1_4_FUENTES.zip.part02"
+          rm ".github/workflows/assemble-preprint-1-4.yml"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Reconstruir paquete ZIP original 1.4 y retirar fragmentos temporales"
+          git push origin HEAD:main
